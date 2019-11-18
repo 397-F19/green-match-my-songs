@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect} from "react";
-import { Button, Text, View } from "react-native";
+import PropTypes from "prop-types";
+import { Button, Text, View, ViewPropTypes } from "react-native";
 import { Dialog, DialogDefaultActions } from 'react-native-material-ui';
 import styles from './styles';
 
