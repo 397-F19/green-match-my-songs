@@ -1,13 +1,14 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component, useState, useEffect} from "react";
+import { Text, StyleSheet, View } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import PlaylistPage from './src/playlist.page';
 
 
-export default function App() {  
+
+export default function App() {
   return (
-      <PlaylistPage />
-  );    
+  	<PaperProvider>
+  		<PlaylistPage />   
+    </PaperProvider>
+  );
 }
-
-
-
