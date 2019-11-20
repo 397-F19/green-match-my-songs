@@ -32,4 +32,46 @@ export default StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 2,
   },
+  containerView: {
+    flex: 1,
+  },
+  //LOGIN SCREEN Styles
+  loginScreenContainer: {
+    flex: 1,
+  },
+  logoText: {
+    fontSize: 40,
+    fontWeight: "800",
+    marginTop: 150,
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  loginFormView: {
+    flex: 1
+  },
+  loginFormTextInput: {
+    height: 43,
+    fontSize: 14,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#eaeaea',
+    backgroundColor: '#fafafa',
+    paddingLeft: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 5,
+    marginBottom: 5,
+  
+  },
+  loginButton: {
+    backgroundColor: '#1DB954',
+    borderRadius: 5,
+    height: 45,
+    marginTop: 10,
+  },
+  fbLoginButton: {
+    height: 45,
+    marginTop: 10,
+    backgroundColor: 'transparent',
+  },
 });
