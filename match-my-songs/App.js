@@ -9,9 +9,9 @@ import LoginScreen from './src/loginPage';
 export default function App() {
   
   return (
-  	// <PaperProvider>
-  	// 	<PlaylistPage />   
-    // </PaperProvider>
-    <LoginScreen/>
+  	<PaperProvider>
+  		<PlaylistPage />   
+    </PaperProvider>
+    //<LoginScreen/>
   );
 }
