@@ -6,7 +6,6 @@ import LoginScreen from './src/loginPage';
 
 
 
-
 export default function App() {
   
   return (

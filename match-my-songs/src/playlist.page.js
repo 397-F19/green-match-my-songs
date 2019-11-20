@@ -8,8 +8,20 @@ export default function PlaylistPage () {
     return (
         <React.Fragment>
             <View style={styles.container}>
-                <Text style={styles.paragraph}>
-                I am the playlist
+                <Text style={styles.playlist}>
+                I am the playlist       
+                </Text>
+                <Text style={styles.playlist}>
+                I am the playlist       
+                </Text>
+                <Text style={styles.playlist}>
+                I am the playlist       
+                </Text>
+                <Text style={styles.playlist}>
+                I am the playlist       
+                </Text>
+                <Text style={styles.playlist}>
+                I am the playlist       
                 </Text>
                 <Config style={styles.configDialog} />
             </View>                                
