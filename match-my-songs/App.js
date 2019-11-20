@@ -4,7 +4,6 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import PlaylistPage from './src/playlist.page';
 
 
-
 export default function App() {
   return (
   	<PaperProvider>

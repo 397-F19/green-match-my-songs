@@ -1,17 +1,18 @@
 import React, { Component, useState, useEffect} from "react";
 import { View, ScrollView } from 'react-native';
-import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal } from 'react-native-paper';
+import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , TouchableRipple,TextInput} from 'react-native-paper';
 import styles from './styles';
 
 export default function Config(){
   [visible, setVisible]=useState(true);
-  [value, setValue]=useState('first');
+  [radioValue, setRadioValue]=useState('first');
+  [title,setTitle]=useState('');
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
 
   return (
       <View>
-        <Button onPress={showDialog}>Generate Playlist</Button>
+        <Button style={styles.plusButton} icon="plus" mode="contained" onPress={showDialog}>Generate Playlist</Button>
         <Portal>
           <Dialog
              visible={visible}
@@ -23,21 +24,32 @@ export default function Config(){
                   Selet your activity and get a playlist generated with one click</Paragraph>
                   <Divider />
 
+
+
                   <View style={styles.radioContainer}>
+                  <TextInput label='Title' mode="outlined" style={{paddingVertical: 10}}
+                  value={title} onChangeText={title => setTitle({title})} />
+
 
                   <RadioButton.Group
-                    value={value}
-                    onValueChange={(value) => setValue({value})} 
+                    value={radioValue}
+                    onValueChange={(value) => setRadioValue(value)} 
                   >
+                  
 
                   <View style={styles.row}>
                     <Text>Work out</Text>
-                    <RadioButton value="first" />
+                    <RadioButton style={{backgroundColor: '#f5f5f5'}} value="first" color='#5000b8' />
                   </View>
 
                   <View style={styles.row}>
                     <Text>Relax</Text>
-                    <RadioButton value="second" />
+                    <RadioButton value="second" color='#5000b8'/>
+                  </View>
+
+                  <View style={styles.row}>
+                    <Text>Party</Text>
+                    <RadioButton value="third" color='#5000b8' />
                   </View>
 
                   </RadioButton.Group>
