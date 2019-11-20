@@ -8,18 +8,10 @@ import axios from 'axios'
 //Spotify Stuff
 const authEndpoint = 'https://accounts.spotify.com/authorize?'
 const CLIENT_ID = "690c30f6add5454c8a5660405b6b228c";
-const scopes = [
-  "user-read-currently-playing",
-  "user-read-playback-state",
-  "playlist-modify-public",
-  "playlist-modify-private",
-];
-
-export const spotifyCredentials = {
-  clientId: '690c30f6add5454c8a5660405b6b228c',
-  clientSecret: 'Your Client Secret',
-  redirectUri: 'https://auth.expo.io/@gazi.tony/match-my-songs'
-  };
+const scopesArr = ['user-modify-playback-state','user-read-currently-playing','user-read-playback-state','user-library-modify',
+                   'user-library-read','playlist-read-private','playlist-read-collaborative','playlist-modify-public',
+                   'playlist-modify-private','user-read-recently-played','user-top-read'];
+const scopes = scopesArr.join(' ');
 
 export default class LoginScreen extends Component {
   state = {
@@ -33,7 +25,7 @@ export default class LoginScreen extends Component {
     let results = await AuthSession.startAsync({
       authUrl:
       'https://accounts.spotify.com/authorize?client_id=690c30f6add5454c8a5660405b6b228c&redirect_uri=' + encodeURIComponent(redirectUrl) + 
-      '&scope=user-read-email&response_type=token'
+      (scopes ? '&scope=' + encodeURIComponent(scopes) : '') + '&response_type=token'
     });
 
     if (results.type !== 'success') {
