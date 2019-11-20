@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect} from "react";
 import { View, ScrollView } from 'react-native';
 import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , TouchableRipple,TextInput} from 'react-native-paper';
 import styles from './styles';
+import { getAllUsersTracks, getUsersTracksInPlaylist } from "./spotify_functions"
 
 export default function Config(){
   [visible, setVisible]=useState(true);
