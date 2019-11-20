@@ -3,6 +3,7 @@ import { AuthSession } from 'expo';
 import styles from "./styles";
 import {Keyboard, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView} from 'react-native';
 import { Button } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 
 //Spotify Stuff
@@ -48,8 +49,11 @@ export default class LoginScreen extends Component {
         <View style={styles.loginScreenContainer}>
           <View style={styles.loginFormView}>
           <Text style={styles.logoText}>Match My Songs</Text>
-            <TextInput placeholder="Username" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} />
-            <TextInput placeholder="Password" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} secureTextEntry={true}/>
+            <FontAwesome style = {styles.spotifyLogo}
+              name="spotify"
+              color="#2FD566"
+              size={128}
+            />
             <Button
               buttonStyle={styles.loginButton}
               onPress={() => this.handleSpotifyLogin()}

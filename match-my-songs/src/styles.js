@@ -71,18 +71,17 @@ export default StyleSheet.create({
     height: 45,
     marginTop: 10,
   },
-  fbLoginButton: {
-    height: 45,
-    marginTop: 10,
-    backgroundColor: 'transparent',
-  },
     plusButton:{
     margin: 90,
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',                                          
-                                                 
+  },
 
-    }
+ spotifyLogo:{
+   display: "flex",
+   alignItems: "center",
+   justifyContent: 'center',
+ }
 });
