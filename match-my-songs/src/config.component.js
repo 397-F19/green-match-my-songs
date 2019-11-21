@@ -8,6 +8,7 @@ export default function Config(){
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
   [title,setTitle]=useState('');
+  // const showDialog = () => {getAllUsersTracks()}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
 
@@ -20,7 +21,7 @@ export default function Config(){
              onDismiss={hideDialog}>
             <Dialog.Title>Playlist generator for your activity</Dialog.Title>
               <Dialog.ScrollArea style={{ maxHeight: 500}}>
-                <ScrollView>      
+                <ScrollView>
                   <Paragraph style={{paddingVertical: 10}}>
                   Selet your activity and get a playlist generated with one click</Paragraph>
                   <Divider />
@@ -34,9 +35,9 @@ export default function Config(){
 
                   <RadioButton.Group
                     value={radioValue}
-                    onValueChange={(value) => setRadioValue(value)} 
+                    onValueChange={(value) => setRadioValue(value)}
                   >
-                  
+
 
                   <View style={styles.row}>
                     <Text>Work out</Text>
@@ -56,7 +57,7 @@ export default function Config(){
                   </RadioButton.Group>
                   </View>
 
-                
+
                 </ScrollView>
               </Dialog.ScrollArea>
             <Dialog.Actions>
@@ -67,5 +68,3 @@ export default function Config(){
       </View>
       );
 }
-
-

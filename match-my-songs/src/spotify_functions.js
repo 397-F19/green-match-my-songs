@@ -1,4 +1,4 @@
-// Spotify auth setup 
+// Spotify auth setup
 // TODO remove this and automate
 // FIXME: These are meant to be removed.
 var client_id = 'b1bcbd4ae171494db0dbd3a736535946'; // Your client id
@@ -14,11 +14,35 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: 'http://www.google.com'
 });
 
-const token = "BQCoh1zjzCNI6GTzRt-WvSPjaERGjocd443u8sYtBDcJ_G5Nlsj2YG4RBMd_WyqLzTxoAk2xZXt_KJo7uZGxT_tZ_SOUcbXW6d747qUEsprPwTGpZ_r_Ka6eux1zYWD0bhLyhuTBjX6o-jgUCFuthC1gCOtGugmXEKyb9FeCMz_f3bmoIUaBx7K4xY7peaOTLr0z"
+const token = 'BQB-kV0H0DlxglvdtZ8BorpjfVKqLjZTqC_r5U1tnuCgx0nzCxN3ZHnfiqhjYxOcgnpsUC0UB2mrvlty7eJ7zlsSa3KBOLzH2eVXMXglMNPD8oTVVWXKJB93VFdDZCFOUdpsdy5es5Z_ipz7wUfT0waDjKGNwzRl3wCZIv6wvR_aH0mejRjnOy6hKUM';
 spotifyApi.setAccessToken(token);
 
 
-export function getAllUsersTracks() {
+// TODO: Recursively call the apis to get all tracks.
+
+export async function getAllUsersTracksHelper(offset, lastNumTracks, tracks) {
+  console.log('There are', tracks.length, ' songs');
+  if (lastNumTracks && lastNumTracks < 50) {
+    console.log('There are', tracks.length, ' songs');
+    return tracks;
+  }
+  spotifyApi.getMySavedTracks({
+    limit: 50,
+    offset: offset,
+  })
+  .then(function(data) {
+    tracks = tracks.concat(data.body.items);
+    return getAllUsersTracksHelper(offset + 50, data.body.items.length, tracks);
+  });
+}
+
+export async function getAllUsersTracks() {
+  getAllUsersTracksHelper(0, null, []).then(function(tracks) {
+    return tracks;
+  });
+}
+
+export async function getAllUsersTracksOld() {
   console.log('Getting all users songs');
   spotifyApi.getMySavedTracks({
     limit : 50,
@@ -32,8 +56,8 @@ export function getAllUsersTracks() {
   });
 }
 
-export async function getUsersTracksInPlaylist (playlist_id) {
-  const endpoint = "https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks";
+export async function getUsersTracksInPlaylist (playlistId) {
+  const endpoint = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
   const authToken = "BQDfbRn5H3GzjQ7TMH-r32UZbnweRRgNgi6f5wpdgxYNJLmooadcPsuU1qoVQmJ-JqPGeCXEMBP33N6bo5EDc9USer97R1Ne1apvabr5H0_AkqNhadhvhyOaS7_tK6YShJHUM7rqbS5a0GbcL9pzmRX5taHhxMjhmWvZPlCPYIXhYIz6rx6K4SPPTwVbNZ0KFX6i"
   return await fetch(endpoint, {
     method: 'GET',
@@ -47,7 +71,7 @@ export async function getUsersTracksInPlaylist (playlist_id) {
     console.log("getUsersTracksInPlaylist -> " + data.items.length + " tracks grabbed")
     return data.items;
   });
-  
+
 
 };
 
