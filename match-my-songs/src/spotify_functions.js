@@ -1,3 +1,7 @@
+import { shuffle } from './utils';
+
+
+
 // Spotify auth setup
 // TODO remove this and automate
 // FIXME: These are meant to be removed.
@@ -14,30 +18,35 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: 'http://www.google.com'
 });
 
-const token = 'BQB-kV0H0DlxglvdtZ8BorpjfVKqLjZTqC_r5U1tnuCgx0nzCxN3ZHnfiqhjYxOcgnpsUC0UB2mrvlty7eJ7zlsSa3KBOLzH2eVXMXglMNPD8oTVVWXKJB93VFdDZCFOUdpsdy5es5Z_ipz7wUfT0waDjKGNwzRl3wCZIv6wvR_aH0mejRjnOy6hKUM';
-spotifyApi.setAccessToken(token);
+const hardCodedToken = 'BQBEp6cXkxHVhvlsI3oi9bnVBrmr4NdtrX63N4WnMJtvSv1vwMM7eIoY5C0CFQkiwZCJONyvvBzdS09cvQ86TYz2fF8D_2PT95wCHubCIOqqK3ZKaVkXOKZnE7DSrsDI4-BZhyII60H1dzbOB-OB8kpJkZLXQuCKpVnUyJMEwkoa4BzBqxCC8MSx0-g';
+spotifyApi.setAccessToken(hardCodedToken);
 
 
 // TODO: Recursively call the apis to get all tracks.
 
 export async function getAllUsersTracksHelper(offset, lastNumTracks, tracks) {
+  console.log('lastNumTracks', lastNumTracks);
   console.log('There are', tracks.length, ' songs');
   if (lastNumTracks && lastNumTracks < 50) {
-    console.log('There are', tracks.length, ' songs');
+    console.log('Finished! There are', tracks.length, ' songs');
     return tracks;
   }
-  spotifyApi.getMySavedTracks({
+  return spotifyApi.getMySavedTracks({
     limit: 50,
     offset: offset,
   })
   .then(function(data) {
     tracks = tracks.concat(data.body.items);
-    return getAllUsersTracksHelper(offset + 50, data.body.items.length, tracks);
+    console.log('num tracks', tracks.length);
+    return getAllUsersTracksHelper(offset + 50,
+      data.body.items.length, tracks).then(function(_tracks) {
+        return _tracks;
+      });
   });
 }
 
 export async function getAllUsersTracks() {
-  getAllUsersTracksHelper(0, null, []).then(function(tracks) {
+  return getAllUsersTracksHelper(0, null, []).then(function(tracks) {
     return tracks;
   });
 }
@@ -58,11 +67,11 @@ export async function getAllUsersTracksOld() {
 
 export async function getUsersTracksInPlaylist (playlistId) {
   const endpoint = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
-  const authToken = "BQDfbRn5H3GzjQ7TMH-r32UZbnweRRgNgi6f5wpdgxYNJLmooadcPsuU1qoVQmJ-JqPGeCXEMBP33N6bo5EDc9USer97R1Ne1apvabr5H0_AkqNhadhvhyOaS7_tK6YShJHUM7rqbS5a0GbcL9pzmRX5taHhxMjhmWvZPlCPYIXhYIz6rx6K4SPPTwVbNZ0KFX6i"
+  // const authToken = hardCodedToken;
   return await fetch(endpoint, {
     method: 'GET',
     headers: {
-      Authorization: "Bearer " + token,
+      Authorization: "Bearer " + hardCodedToken,
       'Content-Type': 'application/json',
     }
   })
@@ -75,6 +84,43 @@ export async function getUsersTracksInPlaylist (playlistId) {
 
 };
 
-const getUsersTracksPerPreference = (userId, preferredGenres) => {
+export async function getUsersTracksPerPreference(preferredGenres) {
+  preferredGenres = new Set(preferredGenres);
+  let allTracks = await getAllUsersTracks();
+  console.log(allTracks.length);
+  allTracks = shuffle(allTracks);
+  let preferredTracks = [];
 
+  let i = 0;
+  while (preferredTracks.length < 10 && i < allTracks.length) {
+    if (!allTracks[i]) {
+      i += 1;
+      continue;
+    }
+    const track = allTracks[i]['track'];
+    if (!track['artists']) {
+      console.log(allTracks[i]);
+      i += 1;
+      continue;
+    }
+    if (!track['artists'][0]) {
+      console.log(allTracks[i]['artists']);
+      i += 1;
+      continue;
+    }
+    const artistId = track['artists'][0]['id'];
+    i += 1;
+    const artistInfo = await spotifyApi.getArtist(artistId);
+    console.log(artistInfo);
+    const genres = artistInfo['body']['genres'];
+    console.log(genres);
+    for (let j = 0; j < genres.length; j += 1) {
+      if (preferredGenres.has(genres[j])) {
+        preferredTracks.push(allTracks[i]);
+        break;
+      }
+    }
+  }
+  console.log(preferredTracks.length);
+  return preferredTracks;
 };
