@@ -83,5 +83,7 @@ export default StyleSheet.create({
    display: "flex",
    alignItems: "center",
    justifyContent: 'center',
+   marginLeft: '35%',
+   marginRight: '15%'
  }
 });

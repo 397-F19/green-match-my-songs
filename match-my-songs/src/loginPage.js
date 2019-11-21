@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { AuthSession } from 'expo';
 import styles from "./styles";
 import {Keyboard, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { Button } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
@@ -15,6 +17,7 @@ const scopesArr = ['user-modify-playback-state','user-read-currently-playing','u
 const scopes = scopesArr.join(' ');
 
 export default class LoginScreen extends Component {
+
   state = {
     userInfo: null,
     didError: false
@@ -39,6 +42,7 @@ export default class LoginScreen extends Component {
       });
       this.setState({ userInfo: userInfo.data });
       console.log(userInfo);
+      this.props.navigation.navigate('Playlist', {user: userInfo})
     }
   };
   render() {
