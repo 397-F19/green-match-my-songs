@@ -2,20 +2,17 @@ import React, { Component, useState, useEffect} from "react";
 import { View, ScrollView } from 'react-native';
 import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , TouchableRipple,TextInput} from 'react-native-paper';
 import styles from './styles';
-import { getAllUsersTracks, getUsersTracksInPlaylist, getUsersTracksPerPreference } from "./spotify_functions"
+import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config(){
+export default function Config({ token }) {
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
   [title,setTitle]=useState('');
-  [genrePreference,setGenrePreference]=useState('pop');
+  [genrePreference,setGenrePreference]=useState('');
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
 
-  const getLabel = (genre, value) =>{
-    return genre.value === value;
-  }
 
   const genres = [
   {
@@ -39,6 +36,16 @@ export default function Config(){
     label: 'tropical',
   },
   ]
+
+  const getSongsCloseDialog = async () => {
+    setVisible(false);
+    tracks = await getAllUsersTracks(token);
+    playlistId = "37i9dQZF1DXeapRjZhqZ07"
+    prefTracks = await getUsersTracksPerPreference('electronic', token);
+    console.log(tracks)
+    console.log(prefTracks)
+  }
+
 
   return (
       <View>
@@ -67,8 +74,11 @@ export default function Config(){
                       {setRadioValue(value); 
                         let obj=genres.find( genre => genre.value === value);
                         setGenrePreference(obj.label);
-                        console.log(genres.find( genre => genre.value === value));
+                        console.log(obj.label);
                         console.log(genrePreference);
+                        console.log(genres.find( genre => genre.value === value));
+                        
+                        getSongsCloseDialog;
                       } }
                   >
 
@@ -91,7 +101,7 @@ export default function Config(){
                 </ScrollView>
               </Dialog.ScrollArea>
             <Dialog.Actions>
-              <Button onPress={hideDialog}>Done</Button>
+              <Button onPress={getSongsCloseDialog}>Done</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

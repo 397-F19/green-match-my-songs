@@ -8,6 +8,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 export default class PlaylistScreen extends React.Component {
     render() {
+        user = this.props.navigation.state.params["user"];
+        token = ""
+        try {
+            token = user.config.headers.Authorization.split(" ")[1]
+        }
+        catch {
+            console.log("Failed to get auth token")
+        }
         return(
             <PaperProvider>
                 <React.Fragment>
@@ -27,7 +35,7 @@ export default class PlaylistScreen extends React.Component {
                         <Text style={styles.playlist}>
                         I am the playlist       
                         </Text>
-                        <Config style={styles.configDialog} />
+                        <Config token = {token} style={styles.configDialog} />
                     </View>                                
                 </React.Fragment>  
             </PaperProvider>

@@ -18,7 +18,7 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: 'http://www.google.com'
 });
 
-const hardCodedToken = 'BQBEp6cXkxHVhvlsI3oi9bnVBrmr4NdtrX63N4WnMJtvSv1vwMM7eIoY5C0CFQkiwZCJONyvvBzdS09cvQ86TYz2fF8D_2PT95wCHubCIOqqK3ZKaVkXOKZnE7DSrsDI4-BZhyII60H1dzbOB-OB8kpJkZLXQuCKpVnUyJMEwkoa4BzBqxCC8MSx0-g';
+const hardCodedToken = 'BQB8bwC-aduGTn2c9jMm1wtSG6wTKP6DdnVwKUcSfr7DM1LqoDI1rkRBa8iGYamr16JFRxmK5COcnXe6RSMRiaChry5eUc6qPUeGzF7Hmhc0lFZeEWK-AudBvYWDqWFK2XmGEolKigew-80qNr3TSr4H_jabMx2nqoF5z2isOYXx4viJJfYkptrK_PojrcHnmTWh';
 spotifyApi.setAccessToken(hardCodedToken);
 
 
@@ -45,48 +45,18 @@ export async function getAllUsersTracksHelper(offset, lastNumTracks, tracks) {
   });
 }
 
-export async function getAllUsersTracks() {
+export async function getAllUsersTracks(token) {
+  spotifyApi.setAccessToken(token);
   return getAllUsersTracksHelper(0, null, []).then(function(tracks) {
     return tracks;
   });
 }
 
-export async function getAllUsersTracksOld() {
-  console.log('Getting all users songs');
-  spotifyApi.getMySavedTracks({
-    limit : 50,
-    offset: 1
-  })
-  .then(function(data) {
-    console.log("getAllUsersTracks -> " + data.body.items.length + " tracks grabbed")
-    return data.body.items;
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
-}
 
-export async function getUsersTracksInPlaylist (playlistId) {
-  const endpoint = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
-  // const authToken = hardCodedToken;
-  return await fetch(endpoint, {
-    method: 'GET',
-    headers: {
-      Authorization: "Bearer " + hardCodedToken,
-      'Content-Type': 'application/json',
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log("getUsersTracksInPlaylist -> " + data.items.length + " tracks grabbed")
-    return data.items;
-  });
-
-
-};
-
-export async function getUsersTracksPerPreference(preferredGenres) {
+export async function getUsersTracksPerPreference(preferredGenres, token) {
+  spotifyApi.setAccessToken(token);
   preferredGenres = new Set(preferredGenres);
-  let allTracks = await getAllUsersTracks();
+  let allTracks = await getAllUsersTracks(token);
   console.log(allTracks.length);
   allTracks = shuffle(allTracks);
   let preferredTracks = [];
