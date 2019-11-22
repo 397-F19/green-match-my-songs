@@ -12,8 +12,17 @@ export default function Config({ token }) {
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
 
-  console.log(15, token)
-  //this.props.navigation.state.params["roomID"];
+  const getSongsCloseDialog = async () => {
+    setVisible(false);
+    //tracks = await getAllUsersTracks(token);
+    //playlistId = "37i9dQZF1DXeapRjZhqZ07"
+    //playlistTracks = await getUsersTracksInPlaylist(playlistId, token);
+    //prefTracks = await getUsersTracksPerPreference(['electronic', 'dance', 'pop'], token);
+    //console.log(tracks)
+    //console.log(prefTracks)
+    //console.log(playlistTracks);
+  }
+  
 
   return (
       <View>
@@ -64,7 +73,7 @@ export default function Config({ token }) {
                 </ScrollView>
               </Dialog.ScrollArea>
             <Dialog.Actions>
-              <Button onPress={hideDialog}>Done</Button>
+              <Button onPress={getSongsCloseDialog}>Done</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

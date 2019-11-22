@@ -18,7 +18,7 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: 'http://www.google.com'
 });
 
-const hardCodedToken = 'BQBEp6cXkxHVhvlsI3oi9bnVBrmr4NdtrX63N4WnMJtvSv1vwMM7eIoY5C0CFQkiwZCJONyvvBzdS09cvQ86TYz2fF8D_2PT95wCHubCIOqqK3ZKaVkXOKZnE7DSrsDI4-BZhyII60H1dzbOB-OB8kpJkZLXQuCKpVnUyJMEwkoa4BzBqxCC8MSx0-g';
+const hardCodedToken = 'BQB8bwC-aduGTn2c9jMm1wtSG6wTKP6DdnVwKUcSfr7DM1LqoDI1rkRBa8iGYamr16JFRxmK5COcnXe6RSMRiaChry5eUc6qPUeGzF7Hmhc0lFZeEWK-AudBvYWDqWFK2XmGEolKigew-80qNr3TSr4H_jabMx2nqoF5z2isOYXx4viJJfYkptrK_PojrcHnmTWh';
 spotifyApi.setAccessToken(hardCodedToken);
 
 
@@ -45,7 +45,8 @@ export async function getAllUsersTracksHelper(offset, lastNumTracks, tracks) {
   });
 }
 
-export async function getAllUsersTracks() {
+export async function getAllUsersTracks(token) {
+  spotifyApi.setAccessToken(token);
   return getAllUsersTracksHelper(0, null, []).then(function(tracks) {
     return tracks;
   });
@@ -65,13 +66,14 @@ export async function getAllUsersTracksOld() {
   });
 }
 
-export async function getUsersTracksInPlaylist (playlistId) {
+export async function getUsersTracksInPlaylist (playlistId, token) {
+  spotifyApi.setAccessToken(token);
   const endpoint = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
   // const authToken = hardCodedToken;
   return await fetch(endpoint, {
     method: 'GET',
     headers: {
-      Authorization: "Bearer " + hardCodedToken,
+      Authorization: "Bearer " + token,
       'Content-Type': 'application/json',
     }
   })
@@ -84,9 +86,10 @@ export async function getUsersTracksInPlaylist (playlistId) {
 
 };
 
-export async function getUsersTracksPerPreference(preferredGenres) {
+export async function getUsersTracksPerPreference(preferredGenres, token) {
+  spotifyApi.setAccessToken(token);
   preferredGenres = new Set(preferredGenres);
-  let allTracks = await getAllUsersTracks();
+  let allTracks = await getAllUsersTracks(token);
   console.log(allTracks.length);
   allTracks = shuffle(allTracks);
   let preferredTracks = [];
