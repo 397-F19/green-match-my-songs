@@ -13,7 +13,7 @@ const colors = {
 const styles = StyleSheet.create({
     card:{
         marginTop: 50,
-        height: height-300,
+        height: height-410,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.white,
