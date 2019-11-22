@@ -4,13 +4,16 @@ import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , Touchab
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksInPlaylist, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config(){
+export default function Config({ token }) {
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
   [title,setTitle]=useState('');
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
+
+  console.log(15, token)
+  //this.props.navigation.state.params["roomID"];
 
   return (
       <View>
