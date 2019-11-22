@@ -8,9 +8,37 @@ export default function Config(){
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
   [title,setTitle]=useState('');
+  [genrePreference,setGenrePreference]=useState('pop');
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
+
+  const getLabel = (genre, value) =>{
+    return genre.value === value;
+  }
+
+  const genres = [
+  {
+    value: 'first',
+    label: 'pop',
+  },
+  {
+    value: 'second',
+    label: 'rock',
+  },
+  {
+    value: 'third',
+    label: 'rap',
+  },
+  {
+    value: 'fourth',
+    label: 'latin',
+  },
+  {
+    value: 'fifth',
+    label: 'tropical',
+  },
+  ]
 
   return (
       <View>
@@ -35,24 +63,26 @@ export default function Config(){
 
                   <RadioButton.Group
                     value={radioValue}
-                    onValueChange={(value) => setRadioValue(value)}
+                    onValueChange={ value => 
+                      {setRadioValue(value); 
+                        let obj=genres.find( genre => genre.value === value);
+                        setGenrePreference(obj.label);
+                        console.log(genres.find( genre => genre.value === value));
+                        console.log(genrePreference);
+                      } }
                   >
 
+                  {genres.map (genre =>
 
-                  <View style={styles.row}>
-                    <Text>Work out</Text>
-                    <RadioButton style={{backgroundColor: '#f5f5f5'}} value="first" color='#5000b8' />
-                  </View>
+                  
+                    <View style={styles.row}>
+                      <Text>{genre.label}</Text>
+                    <RadioButton value={genre.value} color='#5000b8' />
+                    </View>
+                  
+                  )
+                }
 
-                  <View style={styles.row}>
-                    <Text>Relax</Text>
-                    <RadioButton value="second" color='#5000b8'/>
-                  </View>
-
-                  <View style={styles.row}>
-                    <Text>Party</Text>
-                    <RadioButton value="third" color='#5000b8' />
-                  </View>
 
                   </RadioButton.Group>
                   </View>
