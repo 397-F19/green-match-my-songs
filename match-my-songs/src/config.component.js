@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect} from "react";
 import { View, ScrollView } from 'react-native';
 import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , TouchableRipple,TextInput} from 'react-native-paper';
 import styles from './styles';
-import { getAllUsersTracks, getUsersTracksInPlaylist, getUsersTracksPerPreference } from "./spotify_functions"
+import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
 export default function Config({ token }) {
   [visible, setVisible]=useState(true);
@@ -16,11 +16,9 @@ export default function Config({ token }) {
     setVisible(false);
     //tracks = await getAllUsersTracks(token);
     //playlistId = "37i9dQZF1DXeapRjZhqZ07"
-    //playlistTracks = await getUsersTracksInPlaylist(playlistId, token);
     //prefTracks = await getUsersTracksPerPreference(['electronic', 'dance', 'pop'], token);
     //console.log(tracks)
     //console.log(prefTracks)
-    //console.log(playlistTracks);
   }
   
 
