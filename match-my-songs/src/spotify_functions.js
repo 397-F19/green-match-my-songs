@@ -52,39 +52,6 @@ export async function getAllUsersTracks(token) {
   });
 }
 
-export async function getAllUsersTracksOld() {
-  console.log('Getting all users songs');
-  spotifyApi.getMySavedTracks({
-    limit : 50,
-    offset: 1
-  })
-  .then(function(data) {
-    console.log("getAllUsersTracks -> " + data.body.items.length + " tracks grabbed")
-    return data.body.items;
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
-}
-
-export async function getUsersTracksInPlaylist (playlistId, token) {
-  spotifyApi.setAccessToken(token);
-  const endpoint = "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
-  // const authToken = hardCodedToken;
-  return await fetch(endpoint, {
-    method: 'GET',
-    headers: {
-      Authorization: "Bearer " + token,
-      'Content-Type': 'application/json',
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log("getUsersTracksInPlaylist -> " + data.items.length + " tracks grabbed")
-    return data.items;
-  });
-
-
-};
 
 export async function getUsersTracksPerPreference(preferredGenres, token) {
   spotifyApi.setAccessToken(token);
