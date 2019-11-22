@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect} from "react";
+import React, { useState } from "react";
 import { View, ScrollView } from 'react-native';
-import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , TouchableRipple,TextInput} from 'react-native-paper';
+import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal, TextInput} from 'react-native-paper';
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
@@ -12,7 +12,6 @@ export default function Config({ token, handlesong }) {
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};
-
 
   const genres = [
   {
@@ -48,7 +47,6 @@ export default function Config({ token, handlesong }) {
     handlesong(prefTracks);
   }
 
-
   return (
       <View>
         <Button style={styles.plusButton} icon="plus" mode="contained" onPress={showDialog}>Generate Playlist</Button>
@@ -63,12 +61,9 @@ export default function Config({ token, handlesong }) {
                   Selet your activity and get a playlist generated with one click</Paragraph>
                   <Divider />
 
-
-
                   <View style={styles.radioContainer}>
                   <TextInput label='Title' mode="outlined" style={{paddingVertical: 10}}
                   value={title} onChangeText={title => setTitle({title})} />
-
 
                   <RadioButton.Group
                     value={radioValue}
@@ -83,10 +78,7 @@ export default function Config({ token, handlesong }) {
                         getSongsCloseDialog;
                       } }
                   >
-
-                  {genres.map (genre =>
-
-                  
+                  {genres.map (genre =>   
                     <View style={styles.row} key={genre.value}>
                       <Text>{genre.label}</Text>
                     <RadioButton value={genre.value} color='#5000b8' />
@@ -94,12 +86,8 @@ export default function Config({ token, handlesong }) {
                   
                   )
                 }
-
-
                   </RadioButton.Group>
                   </View>
-
-
                 </ScrollView>
               </Dialog.ScrollArea>
             <Dialog.Actions>

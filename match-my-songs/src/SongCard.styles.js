@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         flex: 1,
         width: '100%',
-        // width: 330,
-        // height: 330
     },
     photoDes:{
         justifyContent: 'flex-end',

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ImageSourcePropType } from 'react-native';
-import { Card, Divider } from 'react-native-elements'; 
+import { View, Text, Image } from 'react-native';
 import styles from './SongCard.styles';
 
 const SongCard = ({card}) => {
@@ -15,7 +14,6 @@ const SongCard = ({card}) => {
             source={{uri: card.track.album.images[1].url}}
             resizeMode="cover"
         />
-        <Divider/>
         <View style={styles.photoDes}>
             <Text style={styles.text}>
                 {card.track.name}
