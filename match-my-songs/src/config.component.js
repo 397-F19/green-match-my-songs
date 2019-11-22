@@ -4,7 +4,7 @@ import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal , Touchab
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config({ token }) {
+export default function Config({ token, handlesong }) {
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
   [title,setTitle]=useState('');
@@ -41,9 +41,11 @@ export default function Config({ token }) {
     setVisible(false);
     tracks = await getAllUsersTracks(token);
     playlistId = "37i9dQZF1DXeapRjZhqZ07"
-    prefTracks = await getUsersTracksPerPreference('electronic', token);
-    console.log(tracks)
+    prefTracks = await getUsersTracksPerPreference([genrePreference], token);
+    //console.log(tracks)
+    console.log('preference')
     console.log(prefTracks)
+    handlesong(prefTracks);
   }
 
 
@@ -85,7 +87,7 @@ export default function Config({ token }) {
                   {genres.map (genre =>
 
                   
-                    <View style={styles.row}>
+                    <View style={styles.row} key={genre.value}>
                       <Text>{genre.label}</Text>
                     <RadioButton value={genre.value} color='#5000b8' />
                     </View>

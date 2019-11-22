@@ -7,6 +7,20 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 export default class PlaylistScreen extends React.Component {
+    constructor () {
+        super()
+        this.state = {
+            songs:[]
+        }
+        this.handlesong = this.handlesong.bind(this);
+    }
+
+    handlesong(items){
+        this.setState({
+            songs: items
+        })
+    }
+
     render() {
         user = this.props.navigation.state.params["user"];
         token = ""
@@ -21,21 +35,9 @@ export default class PlaylistScreen extends React.Component {
                 <React.Fragment>
                     <View style={styles.container}>
                         <Text style={styles.playlist}>
-                        I am the playlist       
+                        {this.state.songs.length!==0?this.state.songs[0].added_at:'test'}       
                         </Text>
-                        <Text style={styles.playlist}>
-                        I am the playlist       
-                        </Text>
-                        <Text style={styles.playlist}>
-                        I am the playlist       
-                        </Text>
-                        <Text style={styles.playlist}>
-                        I am the playlist       
-                        </Text>
-                        <Text style={styles.playlist}>
-                        I am the playlist       
-                        </Text>
-                        <Config token = {token} style={styles.configDialog} />
+                        <Config token = {token} style={styles.configDialog} handlesong={this.handlesong} />
                     </View>                                
                 </React.Fragment>  
             </PaperProvider>
