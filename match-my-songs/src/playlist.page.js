@@ -10,8 +10,8 @@ import IconButton from './IconButton';
 
 const PlaylistScreen = ({route}) => {
     
-    user = route.params["user"];
-    token = ""
+    let user = route.params["user"];
+    let token = ""
     try {
         token = user.config.headers.Authorization.split(" ")[1]
     }

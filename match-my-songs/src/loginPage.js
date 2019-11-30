@@ -20,7 +20,7 @@ const LoginScreen = ({navigation}) => {
   
   const handleSpotifyLogin = async () => {
     let redirectUrl = AuthSession.getRedirectUrl();
-    console.log(redirectUrl)
+    //console.log(redirectUrl)
     let results = await AuthSession.startAsync({
       authUrl:
       'https://accounts.spotify.com/authorize?client_id=690c30f6add5454c8a5660405b6b228c&redirect_uri=' + encodeURIComponent(redirectUrl) + 
@@ -36,8 +36,8 @@ const LoginScreen = ({navigation}) => {
         }
       });
       setUserInfo(tempuserInfo.data);
-      console.log(tempuserInfo);
-      navigation.navigate('Playlist', {user: tempuserInfo})
+      //console.log(tempuserInfo);
+      navigation.navigate('Main', {user: tempuserInfo})
     }
   };
 
