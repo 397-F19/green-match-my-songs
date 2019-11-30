@@ -19,10 +19,10 @@ const PlaylistScreen = ({route}) => {
         console.log("Failed to get auth token")
     }
 
-    const [songs,setState] = useState([])
+    const [songs,setSongs] = useState([])
     const swiper = useRef()
     const handlesong = (items) => {
-        setState(items);
+        setSongs(items);
     }
             
     const handleOnSwipedLeft = () => swiper.current.swipeLeft()
