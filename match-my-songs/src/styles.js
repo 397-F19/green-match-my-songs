@@ -44,7 +44,7 @@ export default StyleSheet.create({
   logoText: {
     fontSize: 40,
     fontWeight: "800",
-    marginTop: 150,
+    marginTop: 200,
     marginBottom: 30,
     textAlign: 'center',
   },
@@ -69,7 +69,7 @@ export default StyleSheet.create({
     backgroundColor: '#1DB954',
     borderRadius: 5,
     height: 45,
-    marginTop: 10,
+    marginTop: 30,
   },
     plusButton:{
     margin: 90,

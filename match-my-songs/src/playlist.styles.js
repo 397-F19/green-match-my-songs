@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        },
-        radioContainer: {
+    },
+    radioContainer: {
         flex: 1,
         paddingVertical: 8,
     },
