@@ -48,6 +48,15 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir',
         textShadowColor: colors.black,
         textShadowRadius: 10,
+    },
+    endcard:{
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    endtxt:{
+        textAlign: 'center',
+        fontSize: 70,
+        fontWeight: 'bold',
     }
 })
 

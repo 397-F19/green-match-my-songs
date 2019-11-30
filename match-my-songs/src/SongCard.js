@@ -3,8 +3,9 @@ import { View, Text, Image } from 'react-native';
 import styles from './SongCard.styles';
 
 const SongCard = ({card}) => {
-
+    
     return(
+    card? card!=='end'?
     <View
         activeOpacity={1}
         style={styles.card}
@@ -23,8 +24,13 @@ const SongCard = ({card}) => {
             </Text>
         </View>
     </View>
+    :<View style={styles.card}>
+    <Text style={styles.endtxt}>
+        That's All          
+    </Text>
+    </View>
+    :null
     )
-
 }
 
 export default SongCard;

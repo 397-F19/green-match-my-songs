@@ -1,5 +1,5 @@
 import React,{ useState, useRef } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import Config from './config.component';
 import { Provider as PaperProvider } from 'react-native-paper';
 import styles from './playlist.styles';
@@ -20,6 +20,7 @@ const PlaylistScreen = ({route}) => {
     }
 
     const [songs,setSongs] = useState([])
+    const [disable,setDisable] =useState(false)
     const swiper = useRef()
     const handlesong = (items) => {
         setSongs(items);
@@ -27,7 +28,7 @@ const PlaylistScreen = ({route}) => {
             
     const handleOnSwipedLeft = () => swiper.current.swipeLeft()
     const handleOnSwipedRight = () => swiper.current.swipeRight()
-      
+    console.log(songs.length)
     return(
         <React.Fragment>
         {songs.length!==0?
@@ -37,14 +38,17 @@ const PlaylistScreen = ({route}) => {
             ref={swiper}
             animateCardOpacity
             containerStyle={styles.container}
-            cards={songs}
-            renderCard={card => <SongCard card={card} />}
+            cards={songs.concat([0,'end'])}
+            renderCard={(card,index) => <SongCard card={card} index={index} user={user} />}
             cardIndex={0}
             backgroundColor="white"
             stackSize={2}
-            infinite
             showSecondCard
             animateOverlayLabelsOpacity
+            disableTopSwipe={true}
+            disableBottomSwipe={true}
+            disableLeftSwipe={disable}
+            disableRightSwipe={disable}
             overlayLabels={{
                 left: {
                     title: 'NOPE',
@@ -65,6 +69,8 @@ const PlaylistScreen = ({route}) => {
                     }
                 }
             }}
+            onSwipedLeft={(index)=>{if(index===songs.length-1) setDisable(true)}}
+            onSwipedRight={(index)=>{if(index===songs.length-1) setDisable(true)}}
         /> 
         </View>
         <View style={styles.buttonContainer}>
@@ -73,12 +79,14 @@ const PlaylistScreen = ({route}) => {
                 onPress={handleOnSwipedLeft}
                 color="white"
                 backgroundColor="#4CCC93"
+                disable={disable}
             />
             <IconButton
                 name="heart"
                 onPress={handleOnSwipedRight}
                 color="white"
                 backgroundColor="#E5566D"
+                disable={disable}
             />
         </View>
         </View>
