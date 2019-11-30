@@ -42,8 +42,9 @@ export default function Config({ token, handlesong }) {
     playlistId = "37i9dQZF1DXeapRjZhqZ07"
     prefTracks = await getUsersTracksPerPreference([genrePreference], token);
     //console.log(tracks)
-    console.log('preference')
-    console.log(prefTracks)
+    //console.log('preference')
+    //console.log(prefTracks)
+    if(prefTracks.length===0) alert('none found')
     handlesong(prefTracks);
   }
 
@@ -71,9 +72,9 @@ export default function Config({ token, handlesong }) {
                       {setRadioValue(value); 
                         let obj=genres.find( genre => genre.value === value);
                         setGenrePreference(obj.label);
-                        console.log(obj.label);
-                        console.log(genrePreference);
-                        console.log(genres.find( genre => genre.value === value));
+                        //console.log(obj.label);
+                        //console.log(genrePreference);
+                        //console.log(genres.find( genre => genre.value === value));
                         
                         getSongsCloseDialog;
                       } }

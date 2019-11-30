@@ -25,10 +25,10 @@ spotifyApi.setAccessToken(hardCodedToken);
 // TODO: Recursively call the apis to get all tracks.
 
 export async function getAllUsersTracksHelper(offset, lastNumTracks, tracks) {
-  console.log('lastNumTracks', lastNumTracks);
-  console.log('There are', tracks.length, ' songs');
+  //console.log('lastNumTracks', lastNumTracks);
+  //console.log('There are', tracks.length, ' songs');
   if (lastNumTracks && lastNumTracks < 50) {
-    console.log('Finished! There are', tracks.length, ' songs');
+    //console.log('Finished! There are', tracks.length, ' songs');
     return tracks;
   }
   return spotifyApi.getMySavedTracks({
@@ -37,7 +37,7 @@ export async function getAllUsersTracksHelper(offset, lastNumTracks, tracks) {
   })
   .then(function(data) {
     tracks = tracks.concat(data.body.items);
-    console.log('num tracks', tracks.length);
+    //console.log('num tracks', tracks.length);
     return getAllUsersTracksHelper(offset + 50,
       data.body.items.length, tracks).then(function(_tracks) {
         return _tracks;
@@ -57,7 +57,7 @@ export async function getUsersTracksPerPreference(preferredGenres, token) {
   spotifyApi.setAccessToken(token);
   preferredGenres = new Set(preferredGenres);
   let allTracks = await getAllUsersTracks(token);
-  console.log(allTracks.length);
+  //console.log(allTracks.length);
   allTracks = shuffle(allTracks);
   let preferredTracks = [];
 
@@ -69,21 +69,21 @@ export async function getUsersTracksPerPreference(preferredGenres, token) {
     }
     const track = allTracks[i]['track'];
     if (!track['artists']) {
-      console.log(allTracks[i]);
+      //console.log(allTracks[i]);
       i += 1;
       continue;
     }
     if (!track['artists'][0]) {
-      console.log(allTracks[i]['artists']);
+      //console.log(allTracks[i]['artists']);
       i += 1;
       continue;
     }
     const artistId = track['artists'][0]['id'];
     i += 1;
     const artistInfo = await spotifyApi.getArtist(artistId);
-    console.log(artistInfo);
+    //console.log(artistInfo);
     const genres = artistInfo['body']['genres'];
-    console.log(genres);
+    //console.log(genres);
     for (let j = 0; j < genres.length; j += 1) {
       if (preferredGenres.has(genres[j])) {
         preferredTracks.push(allTracks[i]);
@@ -91,6 +91,6 @@ export async function getUsersTracksPerPreference(preferredGenres, token) {
       }
     }
   }
-  console.log(preferredTracks.length);
+  //console.log(preferredTracks.length);
   return preferredTracks;
 };

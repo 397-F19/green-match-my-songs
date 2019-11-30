@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import styles from './SongCard.styles';
 
 const SongCard = ({card}) => {
-   if(card) 
+
     return(
     <View
         activeOpacity={1}
@@ -24,7 +24,7 @@ const SongCard = ({card}) => {
         </View>
     </View>
     )
-    else return null
+
 }
 
 export default SongCard;

@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
     swiperContainer: {
         height: height - 250,
     },
+    buttonContainer: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: '15%',
+        marginBottom: 100,
+    },
     overlayWrapper: {
         flexDirection: 'column',
         alignItems: 'flex-end',
@@ -18,7 +25,7 @@ const styles = StyleSheet.create({
         marginLeft: -30
     },
     configDialog:{
-        height: 1000,
+        height: 10,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
