@@ -3,6 +3,11 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+    title:{
+        fontSize:20,
+        fontWeight:'bold',
+        marginBottom: -10
+    },
     list:{
         marginTop:50,
     },

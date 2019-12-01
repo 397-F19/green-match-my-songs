@@ -1,11 +1,16 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { Header, ListItem } from 'react-native-elements';
 import styles from './MatchedSongs.styles';
 
 const MatchedSongs = ({matched}) => {
 
     return(
+        <React.Fragment>
+        <Header
+            backgroundColor='white'
+            centerComponent={<Text style={styles.title}>Matched Songs</Text>}
+        />
         <View style={styles.list}>
             {matched.length!==0?matched.map((l,i)=>
             <ListItem 
@@ -23,6 +28,7 @@ const MatchedSongs = ({matched}) => {
             </View>
             }
         </View>
+        </React.Fragment>
     )
 
 }

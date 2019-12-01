@@ -21,13 +21,13 @@ const MainScreen = ({route}) => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'UserInfo') {
+            if (route.name === 'User Info') {
               iconName = `ios-information-circle${focused? '' : '-outline'}`
               return <Ionicons name={iconName} color={color} size={size}/>
-            } else if (route.name === 'For You'){
+            } else if (route.name === 'Selected For You'){
               iconName = `music-circle${focused? '' : '-outline'}`
               return <MaterialCommunityIcons name={iconName} color={color} size={size}/>
-            } else if (route.name === 'MatchedSongs') {
+            } else if (route.name === 'Matched Songs') {
               iconName = `heart-circle${focused? '' : '-outline'}`
               return <MaterialCommunityIcons name={iconName} color={color} size={size}/>
             }
@@ -39,13 +39,13 @@ const MainScreen = ({route}) => {
           inactiveTintColor: 'gray',
         }}
       >
-        <Tab.Screen name="UserInfo">
+        <Tab.Screen name="User Info">
           { props => <UserInfoScreen {...props} route={route} /> }
         </Tab.Screen>
-        <Tab.Screen name="For You">
+        <Tab.Screen name="Selected For You">
           { props => <PlaylistScreen {...props} route={route} songs={songs} setsongs={setSongs} matched={matched} setmatched={setMatched}/> }
         </Tab.Screen>
-        <Tab.Screen name="MatchedSongs">
+        <Tab.Screen name="Matched Songs">
           { props => <MatchedlistScreen {...props} matched={matched}/> }
         </Tab.Screen>
       </Tab.Navigator>

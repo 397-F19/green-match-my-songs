@@ -1,5 +1,6 @@
 import React,{ useState, useRef } from 'react';
 import { View, Text } from 'react-native';
+import { Header } from 'react-native-elements';
 import Config from './config.component';
 import { Provider as PaperProvider } from 'react-native-paper';
 import styles from './playlist.styles';
@@ -34,6 +35,10 @@ const PlaylistScreen = ({route, songs, setsongs, matched, setmatched}) => {
     
     return(
         <React.Fragment>
+        <Header
+            backgroundColor='white'
+            centerComponent={<Text style={styles.title}>Selected For You</Text>}
+        />
         {songs.length!==0?
         <View style={styles.container}>
         <View style={styles.swipeContainer}>
