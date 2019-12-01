@@ -8,7 +8,7 @@ import SongCard from './SongCard';
 import OverlayLabel from './OverlayLabel';
 import IconButton from './IconButton';
 
-const PlaylistScreen = ({route}) => {
+const PlaylistScreen = ({route, songs, setsongs, matched, setmatched}) => {
     
     let user = route.params["user"];
     let token = ""
@@ -19,16 +19,19 @@ const PlaylistScreen = ({route}) => {
         console.log("Failed to get auth token")
     }
 
-    const [songs,setSongs] = useState([])
     const [disable,setDisable] =useState(false)
     const swiper = useRef()
     const handlesong = (items) => {
-        setSongs(items);
+        setsongs(items);
     }
             
-    const handleOnSwipedLeft = () => swiper.current.swipeLeft()
-    const handleOnSwipedRight = () => swiper.current.swipeRight()
-    console.log(songs.length)
+    const triggerSwipedLeft = () =>  swiper.current.swipeLeft()
+    const triggerSwipedRight = () => swiper.current.swipeRight()
+    const handleOnSwipedRight = (index) => {
+        setmatched(matched.concat(songs[index]));
+        if(index===songs.length-1) setDisable(true);
+    }
+    
     return(
         <React.Fragment>
         {songs.length!==0?
@@ -70,20 +73,20 @@ const PlaylistScreen = ({route}) => {
                 }
             }}
             onSwipedLeft={(index)=>{if(index===songs.length-1) setDisable(true)}}
-            onSwipedRight={(index)=>{if(index===songs.length-1) setDisable(true)}}
+            onSwipedRight={handleOnSwipedRight}
         /> 
         </View>
         <View style={styles.buttonContainer}>
             <IconButton
                 name="close"
-                onPress={handleOnSwipedLeft}
+                onPress={triggerSwipedLeft}
                 color="white"
                 backgroundColor="#4CCC93"
                 disable={disable}
             />
             <IconButton
                 name="heart"
-                onPress={handleOnSwipedRight}
+                onPress={triggerSwipedRight}
                 color="white"
                 backgroundColor="#E5566D"
                 disable={disable}

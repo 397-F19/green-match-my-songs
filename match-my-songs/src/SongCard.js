@@ -25,7 +25,7 @@ const SongCard = ({card}) => {
         </View>
     </View>
     :<View style={styles.card}>
-    <Text style={styles.endtxt}>
+    <Text style={styles.endtext}>
         That's All          
     </Text>
     </View>
