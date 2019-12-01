@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import styles from './SongCard.styles';
 
 const SongCard = ({card}) => {
-    
+
     return(
     card? card!=='end'?
     <View
