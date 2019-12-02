@@ -55,11 +55,11 @@ export default function Config({ token, handlesong }) {
           <Dialog
              visible={visible}
              onDismiss={hideDialog}>
-            <Dialog.Title>Playlist generator for your activity</Dialog.Title>
+            <Dialog.Title>Playlist generator for genres you like</Dialog.Title>
               <Dialog.ScrollArea style={{ maxHeight: 500}}>
                 <ScrollView>
                   <Paragraph style={{paddingVertical: 10}}>
-                  Selet your activity and get a playlist generated with one click</Paragraph>
+                  Select the genre you like and get a playlist generated with one tap</Paragraph>
                   <Divider />
 
                   <View style={styles.radioContainer}>
