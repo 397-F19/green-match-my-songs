@@ -43,10 +43,13 @@ const MainScreen = ({route}) => {
           { props => <UserInfoScreen {...props} route={route} /> }
         </Tab.Screen>
         <Tab.Screen name="Selected For You">
-          { props => <PlaylistScreen {...props} route={route} songs={songs} setsongs={setSongs} matched={matched} setmatched={setMatched}/> }
+          { props => <PlaylistScreen {...props} route={route}
+            songs={songs} setSongs={setSongs}
+            matched={matched} setMatched={setMatched}/> }
         </Tab.Screen>
         <Tab.Screen name="Matched Songs">
-          { props => <MatchedlistScreen {...props} matched={matched}/> }
+          { props => <MatchedlistScreen {...props}
+            matched={matched}/> }
         </Tab.Screen>
       </Tab.Navigator>
   )

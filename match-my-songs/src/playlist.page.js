@@ -9,8 +9,8 @@ import SongCard from './SongCard';
 import OverlayLabel from './OverlayLabel';
 import IconButton from './IconButton';
 
-const PlaylistScreen = ({route, songs, setsongs, matched, setmatched}) => {
-    
+const PlaylistScreen = ({route, songs, setSongs, matched, setMatched}) => {
+
     let user = route.params["user"];
     let token = ""
     try {
@@ -18,92 +18,102 @@ const PlaylistScreen = ({route, songs, setsongs, matched, setmatched}) => {
     }
     catch {
         console.log("Failed to get auth token")
+        return (
+          <div></div>
+        );
     }
 
-    const [disable,setDisable] =useState(false)
+    const [disable,setDisable] = useState(false);
+    const [dislikedArtists, setDislikedArtists] = useState([]);
     const swiper = useRef()
-    const handlesong = (items) => {
-        setsongs(items);
+    const handleSongs = (items) => {
+        setSongs(items);
     }
-            
+
     const triggerSwipedLeft = () =>  swiper.current.swipeLeft()
     const triggerSwipedRight = () => swiper.current.swipeRight()
-    const handleOnSwipedRight = (index) => {
-        setmatched(matched.concat(songs[index]));
-        if(index===songs.length-1) setDisable(true);
+    const handleOnSwipedLeft = (index) => {
+      // TODO: Keep track of artists users do not like
+      // and update the list of songs with setSongs.
+      if (index === songs.length - 1) setDisable(true);
     }
-    
-    return(
-        <React.Fragment>
+    const handleOnSwipedRight = (index) => {
+        setMatched(matched.concat(songs[index]));
+        if (index === songs.length - 1) setDisable(true);
+    }
+
+    return (
+      <React.Fragment>
         <Header
             backgroundColor='white'
             centerComponent={<Text style={styles.title}>Selected For You</Text>}
         />
-        {songs.length!==0?
+        {songs.length !==0 ?
         <View style={styles.container}>
-        <View style={styles.swipeContainer}>
-        <Swiper
-            ref={swiper}
-            animateCardOpacity
-            containerStyle={styles.container}
-            cards={songs.concat([0,'end'])}
-            renderCard={(card,index) => <SongCard card={card} index={index} user={user} />}
-            cardIndex={0}
-            backgroundColor="white"
-            stackSize={2}
-            showSecondCard
-            animateOverlayLabelsOpacity
-            disableTopSwipe={true}
-            disableBottomSwipe={true}
-            disableLeftSwipe={disable}
-            disableRightSwipe={disable}
-            overlayLabels={{
-                left: {
-                    title: 'NOPE',
-                    element: <OverlayLabel label="NOPE" color="#4CCC93"/>,
-                    style:{
-                        wrapper: styles.overlayWrapper,
-                    }
-                },
-                right: {
-                    title: 'LIKE',
-                    element: <OverlayLabel label="LIKE" color="#E5566D"/>,
-                    style:{
-                        wrapper:{
-                            ...styles.overlayWrapper,
-                            alignItems: 'flex-start',
-                            marginLeft: 30,
-                        }
-                    }
-                }
-            }}
-            onSwipedLeft={(index)=>{if(index===songs.length-1) setDisable(true)}}
-            onSwipedRight={handleOnSwipedRight}
-        /> 
+          <View style={styles.swipeContainer}>
+          <Swiper
+              ref={swiper}
+              animateCardOpacity
+              containerStyle={styles.container}
+              cards={songs.concat([0,null])}
+              renderCard={(card, index) => <SongCard card={card} index={index} user={user} />}
+              cardIndex={0}
+              backgroundColor="white"
+              stackSize={2}
+              showSecondCard
+              animateOverlayLabelsOpacity
+              disableTopSwipe={true}
+              disableBottomSwipe={true}
+              disableLeftSwipe={disable}
+              disableRightSwipe={disable}
+              overlayLabels={{
+                  left: {
+                      title: 'NOPE',
+                      element: <OverlayLabel label="NOPE" color="#4CCC93"/>,
+                      style:{
+                          wrapper: styles.overlayWrapper,
+                      }
+                  },
+                  right: {
+                      title: 'LIKE',
+                      element: <OverlayLabel label="LIKE" color="#E5566D"/>,
+                      style:{
+                          wrapper:{
+                              ...styles.overlayWrapper,
+                              alignItems: 'flex-start',
+                              marginLeft: 30,
+                          }
+                      }
+                  }
+              }}
+              onSwipedLeft={handleOnSwipedLeft}
+              onSwipedRight={handleOnSwipedRight}
+          />
+          </View>
+          <View style={styles.buttonContainer}>
+              <IconButton
+                  name="close"
+                  onPress={triggerSwipedLeft}
+                  color="white"
+                  backgroundColor="#4CCC93"
+                  disable={disable}
+              />
+              <IconButton
+                  name="heart"
+                  onPress={triggerSwipedRight}
+                  color="white"
+                  backgroundColor="#E5566D"
+                  disable={disable}
+              />
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-            <IconButton
-                name="close"
-                onPress={triggerSwipedLeft}
-                color="white"
-                backgroundColor="#4CCC93"
-                disable={disable}
-            />
-            <IconButton
-                name="heart"
-                onPress={triggerSwipedRight}
-                color="white"
-                backgroundColor="#E5566D"
-                disable={disable}
-            />
-        </View>
-        </View>
-        :<PaperProvider>
-        <Config token = {token} style={styles.configDialog} handlesong={handlesong} />
-        </PaperProvider> 
+        :
+        <PaperProvider>
+          <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} />
+        </PaperProvider>
         }
-        </React.Fragment>
-        )
+      </React.Fragment>
+  )
 }
 
 export default PlaylistScreen;

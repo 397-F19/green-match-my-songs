@@ -4,7 +4,7 @@ import { Avatar, Button, Header } from 'react-native-elements';
 import styles from './UserInfo.styles'
 
 const UserInfo = ({route, navigation}) => {
-    let userinfo = route.params['user'].data;
+    let userInfo = route.params['user'].data;
 
     return(
         <React.Fragment>
@@ -16,13 +16,15 @@ const UserInfo = ({route, navigation}) => {
             <Avatar
                 rounded
                 source={
-                    userinfo.images.length===0? require('./AppleMusic.jpg'):{uri: userinfo.images[0].url}
+                    userInfo.images.length===0 ?
+                    require('./AppleMusic.jpg') :
+                    {uri: userInfo.images[0].url}
                 }
-                avatarStyle={styles.avatar}  
-                containerStyle={styles.avatarcontainer}       
+                avatarStyle={styles.avatar}
+                containerStyle={styles.avatarcontainer}
             />
             <Text style={styles.text}>
-                {`Hi ${userinfo.display_name}`}
+                {`Hi ${userInfo.display_name}`}
             </Text>
             <Text style={styles.text}>
                 Welcome to Match My Songs!

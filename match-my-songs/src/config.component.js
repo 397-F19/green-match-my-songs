@@ -4,7 +4,7 @@ import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal, TextInpu
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config({ token, handlesong }) {
+export default function Config({ token, handleSongs }) {
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
   [title,setTitle]=useState('');
@@ -45,7 +45,7 @@ export default function Config({ token, handlesong }) {
     //console.log('preference')
     //console.log(prefTracks)
     if(prefTracks.length===0) alert('none found')
-    handlesong(prefTracks);
+    handleSongs(prefTracks);
   }
 
   return (
