@@ -20,7 +20,7 @@ const SongCard = ({card}) => {
               {card.track.name}
           </Text>
           <Text style={styles.text}>
-              {card.track.artists.length>1?card.track.artists[0].name+'...':card.track.artists[0].name}
+              {card.track.artists.length > 1 ? card.track.artists[0].name+'...':card.track.artists[0].name}
           </Text>
       </View>
     </View>

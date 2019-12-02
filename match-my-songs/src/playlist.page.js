@@ -24,8 +24,9 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
     }
 
     const [disable,setDisable] = useState(false);
-    const [dislikedArtists, setDislikedArtists] = useState([]);
-    const swiper = useRef()
+    const [dislikedArtists, setDislikedArtists] = useState({});
+    const swiper = useRef();
+
     const handleSongs = (items) => {
         setSongs(items);
     }
@@ -33,8 +34,20 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
     const triggerSwipedLeft = () =>  swiper.current.swipeLeft()
     const triggerSwipedRight = () => swiper.current.swipeRight()
     const handleOnSwipedLeft = (index) => {
-      // TODO: Keep track of artists users do not like
-      // and update the list of songs with setSongs.
+      // TODO: Keep track of artists the user does not like.
+      const currSong = songs[index];
+      const currArtists = currSong.track.artists;
+      for (let i = 0; i < currArtists.length; i++) {
+        const currArtist = currArtists[i]['name'];
+        if (!dislikedArtists.hasOwnProperty(currArtist)) {
+          dislikedArtists[currArtist] = 0;
+        }
+        dislikedArtists[currArtist] += 1;
+      }
+      setDislikedArtists(dislikedArtists);
+      console.log(dislikedArtists);
+
+      // TODO: Update song list by removing songs by artists disliked 3 times.
       if (index === songs.length - 1) setDisable(true);
     }
     const handleOnSwipedRight = (index) => {
