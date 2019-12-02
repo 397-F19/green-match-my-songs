@@ -4,10 +4,9 @@ import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal, TextInpu
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config({ token, handlesong }) {
+export default function Config({ token, handlesong, title, setTitle }) {
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
-  [title,setTitle]=useState('');
   [genrePreference,setGenrePreference]=useState('');
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
@@ -64,7 +63,7 @@ export default function Config({ token, handlesong }) {
 
                   <View style={styles.radioContainer}>
                   <TextInput label='Title' mode="outlined" style={{paddingVertical: 10}}
-                  value={title} onChangeText={title => setTitle({title})} />
+                  value={title} onChangeText={value => setTitle(value)} />
 
                   <RadioButton.Group
                     value={radioValue}

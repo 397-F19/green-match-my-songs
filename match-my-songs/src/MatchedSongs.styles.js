@@ -9,12 +9,18 @@ const styles = StyleSheet.create({
         marginBottom: -10
     },
     list:{
-        marginTop:50,
+        marginTop:10,
     },
     container:{
         height: height-300,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    listtitle:{
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color:'purple'
     },
     text:{
         textAlign: 'center',

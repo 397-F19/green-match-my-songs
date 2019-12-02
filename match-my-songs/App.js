@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 const MainScreen = ({route}) => {
   const [songs,setSongs] = React.useState([])
   const [matched,setMatched] = React.useState([])
+  const [title,setTitle] = React.useState('')
 
   return(
     <Tab.Navigator
@@ -43,10 +44,10 @@ const MainScreen = ({route}) => {
           { props => <UserInfoScreen {...props} route={route} /> }
         </Tab.Screen>
         <Tab.Screen name="Selected For You">
-          { props => <PlaylistScreen {...props} route={route} songs={songs} setsongs={setSongs} matched={matched} setmatched={setMatched}/> }
+          { props => <PlaylistScreen {...props} route={route} songs={songs} setsongs={setSongs} matched={matched} setmatched={setMatched} title={title} setTitle={setTitle}/> }
         </Tab.Screen>
         <Tab.Screen name="Matched Songs">
-          { props => <MatchedlistScreen {...props} matched={matched}/> }
+          { props => <MatchedlistScreen {...props} matched={matched} title={title}/> }
         </Tab.Screen>
       </Tab.Navigator>
   )
