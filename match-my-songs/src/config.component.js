@@ -4,10 +4,9 @@ import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal, TextInpu
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config({ token, handleSongs }) {
+export default function Config({ token, handleSongs, title, setTitle }) {
   [visible, setVisible]=useState(true);
   [radioValue, setRadioValue]=useState('first');
-  [title,setTitle]=useState('');
   [genrePreference,setGenrePreference]=useState('');
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
@@ -55,36 +54,36 @@ export default function Config({ token, handleSongs }) {
           <Dialog
              visible={visible}
              onDismiss={hideDialog}>
-            <Dialog.Title>Playlist generator for your activity</Dialog.Title>
+            <Dialog.Title>Playlist generator for genres you like</Dialog.Title>
               <Dialog.ScrollArea style={{ maxHeight: 500}}>
                 <ScrollView>
                   <Paragraph style={{paddingVertical: 10}}>
-                  Selet your activity and get a playlist generated with one click</Paragraph>
+                  Select the genre you like and get a playlist generated with one tap</Paragraph>
                   <Divider />
 
                   <View style={styles.radioContainer}>
                   <TextInput label='Title' mode="outlined" style={{paddingVertical: 10}}
-                  value={title} onChangeText={title => setTitle({title})} />
+                  value={title} onChangeText={value => setTitle(value)} />
 
                   <RadioButton.Group
                     value={radioValue}
-                    onValueChange={ value => 
-                      {setRadioValue(value); 
+                    onValueChange={ value =>
+                      {setRadioValue(value);
                         let obj=genres.find( genre => genre.value === value);
                         setGenrePreference(obj.label);
                         //console.log(obj.label);
                         //console.log(genrePreference);
                         //console.log(genres.find( genre => genre.value === value));
-                        
+
                         getSongsCloseDialog;
                       } }
                   >
-                  {genres.map (genre =>   
+                  {genres.map (genre =>
                     <View style={styles.row} key={genre.value}>
                       <Text>{genre.label}</Text>
                     <RadioButton value={genre.value} color='#5000b8' />
                     </View>
-                  
+
                   )
                 }
                   </RadioButton.Group>

@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Linking } from 'expo';
 import styles from './MatchedSongs.styles';
 
-const MatchedSongs = ({matched}) => {
+const MatchedSongs = ({matched, title}) => {
 
     return(
         <React.Fragment>
@@ -14,6 +14,7 @@ const MatchedSongs = ({matched}) => {
             centerComponent={<Text style={styles.title}>Matched Songs</Text>}
         />
         <View style={styles.list}>
+            <Text style={styles.listtitle}>{title}</Text>
             {matched.length!==0?matched.map((l,i)=>
             <ListItem 
                 key={i}

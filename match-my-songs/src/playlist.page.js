@@ -9,7 +9,7 @@ import SongCard from './SongCard';
 import OverlayLabel from './OverlayLabel';
 import IconButton from './IconButton';
 
-const PlaylistScreen = ({route, songs, setSongs, matched, setMatched}) => {
+const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, setTitle}) => {
 
     let user = route.params["user"];
     let token = ""
@@ -107,9 +107,8 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched}) => {
               />
           </View>
         </View>
-        :
-        <PaperProvider>
-          <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} />
+        :<PaperProvider>
+        <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} title={title} setTitle={setTitle} />
         </PaperProvider>
         }
       </React.Fragment>
