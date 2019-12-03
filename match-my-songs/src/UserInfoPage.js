@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Avatar, Button, Header } from 'react-native-elements';
+import { Usercontext } from './context'
 import styles from './UserInfo.styles'
 
-const UserInfo = ({route, navigation}) => {
-    let userInfo = route.params['user'].data;
+const UserInfo = ({navigation}) => {
+
+    const user = React.useContext(Usercontext);
+    let userInfo = user.data;
 
     return(
         <React.Fragment>

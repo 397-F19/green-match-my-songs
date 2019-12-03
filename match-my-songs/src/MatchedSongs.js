@@ -3,9 +3,12 @@ import { View, Text } from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { Linking } from 'expo';
+import { Songcontext } from './context';
 import styles from './MatchedSongs.styles';
 
-const MatchedSongs = ({matched, title}) => {
+const MatchedSongs = () => {
+
+    const [title,,matched,] = React.useContext(Songcontext);
 
     return(
         <React.Fragment>
@@ -14,7 +17,7 @@ const MatchedSongs = ({matched, title}) => {
             centerComponent={<Text style={styles.title}>Matched Songs</Text>}
         />
         <View style={styles.list}>
-            <Text style={styles.listtitle}>{title}</Text>
+            <Text style={styles.listtitle}>{title?title:'Untitled'}</Text>
             {matched.length!==0?matched.map((l,i)=>
             <ListItem 
                 key={i}

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, ScrollView } from 'react-native';
 import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal, TextInput} from 'react-native-paper';
+import { Songcontext } from './context'
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config({ token, handleSongs, title, setTitle }) {
-  [visible, setVisible]=useState(true);
-  [radioValue, setRadioValue]=useState('first');
-  [genrePreference,setGenrePreference]=useState('');
+export default function Config({ token, handleSongs }) {
+  const [visible, setVisible] = useState(true);
+  const [radioValue, setRadioValue] = useState('first');
+  const [genrePreference, setGenrePreference] = useState('');
+  const [title, setTitle] = useContext(Songcontext)
   // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
   const showDialog = () => {setVisible(true)};
   const hideDialog = () => {setVisible(false)};

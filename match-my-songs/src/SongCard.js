@@ -5,7 +5,7 @@ import styles from './SongCard.styles';
 const SongCard = ({card}) => {
   // TODO: Add a button to play a track in-app
     return(
-    card ? card !==null ?
+    card ? card !=='end' ?
     <View
         activeOpacity={1}
         style={styles.card}

@@ -1,17 +1,18 @@
-import React,{ useState, useRef } from 'react';
+import React,{ useState, useRef, useContext } from 'react';
 import { View, Text } from 'react-native';
 import { Header } from 'react-native-elements';
 import Config from './config.component';
 import { Provider as PaperProvider } from 'react-native-paper';
-import styles from './playlist.styles';
+import { Usercontext,Songcontext } from './context';
 import Swiper from 'react-native-deck-swiper';
 import SongCard from './SongCard';
 import OverlayLabel from './OverlayLabel';
 import IconButton from './IconButton';
+import styles from './playlist.styles';
 
-const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, setTitle}) => {
+const PlaylistScreen = () => {
 
-    let user = route.params["user"];
+    const user = useContext(Usercontext);
     let token = ""
     try {
         token = user.config.headers.Authorization.split(" ")[1]
@@ -23,8 +24,10 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
         );
     }
 
+    const [songs,setSongs] = React.useState([])
     const [disable,setDisable] = useState(false);
     const [dislikedArtists, setDislikedArtists] = useState({});
+    const [,,matched,setMatched] = useContext(Songcontext);
     const swiper = useRef();
 
     const handleSongs = (items) => {
@@ -68,7 +71,7 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
               ref={swiper}
               animateCardOpacity
               containerStyle={styles.container}
-              cards={songs.concat([0,null])}
+              cards={songs.concat([0,'end'])}
               renderCard={(card, index) => <SongCard card={card} index={index} user={user} />}
               cardIndex={0}
               backgroundColor="white"
@@ -121,7 +124,7 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
           </View>
         </View>
         :<PaperProvider>
-        <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} title={title} setTitle={setTitle} />
+        <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} />
         </PaperProvider>
         }
       </React.Fragment>

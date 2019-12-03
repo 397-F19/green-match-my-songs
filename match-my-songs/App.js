@@ -3,6 +3,7 @@ import { NavigationNativeContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Usercontext, SongcontextProvider } from './src/context'
 import PlaylistScreen from './src/playlist.page';
 import LoginScreen from './src/loginPage';
 import UserInfoScreen from './src/UserInfoPage';
@@ -12,11 +13,10 @@ const Root = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainScreen = ({route}) => {
-  const [songs,setSongs] = React.useState([])
-  const [matched,setMatched] = React.useState([])
-  const [title,setTitle] = React.useState('')
 
   return(
+    <Usercontext.Provider value={route.params['user']}>
+    <SongcontextProvider>
     <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -40,16 +40,12 @@ const MainScreen = ({route}) => {
           inactiveTintColor: 'gray',
         }}
       >
-        <Tab.Screen name="User Info">
-          { props => <UserInfoScreen {...props} route={route} /> }
-        </Tab.Screen>
-        <Tab.Screen name="Selected For You">
-          { props => <PlaylistScreen {...props} route={route} songs={songs} setSongs={setSongs} matched={matched} setMatched={setMatched} title={title} setTitle={setTitle}/> }
-        </Tab.Screen>
-        <Tab.Screen name="Matched Songs">
-          { props => <MatchedlistScreen {...props} matched={matched} title={title}/> }
-        </Tab.Screen>
+        <Tab.Screen name="User Info" component={UserInfoScreen}/>
+        <Tab.Screen name="Selected For You" component={PlaylistScreen}/>
+        <Tab.Screen name="Matched Songs" component={MatchedlistScreen}/>
       </Tab.Navigator>
+      </SongcontextProvider>
+      </Usercontext.Provider>
   )
 }
 
