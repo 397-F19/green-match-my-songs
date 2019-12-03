@@ -2,7 +2,7 @@ import React,{ useState, useRef } from 'react';
 import { View, Text } from 'react-native';
 import { Header } from 'react-native-elements';
 import Config from './config.component';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider, Button } from 'react-native-paper';
 import styles from './playlist.styles';
 import Swiper from 'react-native-deck-swiper';
 import SongCard from './SongCard';
@@ -24,8 +24,12 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
     }
 
     const [disable,setDisable] = useState(false);
+    const [visible, setVisible]=useState(true);
     const [dislikedArtists, setDislikedArtists] = useState({});
     const swiper = useRef();
+
+    //const showDialog = () => {setVisible(true)};
+    //const hideDialog = () => {setVisible(false)};
 
     const handleSongs = (items) => {
         setSongs(items);
@@ -119,9 +123,12 @@ const PlaylistScreen = ({route, songs, setSongs, matched, setMatched, title, set
                   disable={disable}
               />
           </View>
+          <View style={styles.plusButton}>
+            <Button icon="plus" mode="text" onPress={() => {setVisible(true);setSongs([])}} >Regenerate Playlist</Button>
+          </View>
         </View>
         :<PaperProvider>
-        <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} title={title} setTitle={setTitle} />
+        <Config token = {token} style={styles.configDialog} handleSongs={handleSongs} title={title} setTitle={setTitle} visible={visible} setVisible={setVisible}/>
         </PaperProvider>
         }
       </React.Fragment>

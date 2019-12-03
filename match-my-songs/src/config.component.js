@@ -4,13 +4,10 @@ import { Text, Divider, RadioButton, Button, Paragraph, Dialog, Portal, TextInpu
 import styles from './styles';
 import { getAllUsersTracks, getUsersTracksPerPreference } from "./spotify_functions"
 
-export default function Config({ token, handleSongs, title, setTitle }) {
-  [visible, setVisible]=useState(true);
+export default function Config({ token, handleSongs, title, setTitle, visible, setVisible }) {
   [radioValue, setRadioValue]=useState('first');
   [genrePreference,setGenrePreference]=useState('');
-  // const showDialog = () => {getUsersTracksPerPreference(['electronic', 'dance', 'pop'])}; // Testing getAllUsersTracks;
-  const showDialog = () => {setVisible(true)};
-  const hideDialog = () => {setVisible(false)};
+
 
   const genres = [
   {
@@ -49,11 +46,10 @@ export default function Config({ token, handleSongs, title, setTitle }) {
 
   return (
       <View>
-        <Button style={styles.plusButton} icon="plus" mode="contained" onPress={showDialog}>Generate Playlist</Button>
         <Portal>
           <Dialog
              visible={visible}
-             onDismiss={hideDialog}>
+             onDismiss={() => setVisible(false)}>
             <Dialog.Title>Playlist generator for genres you like</Dialog.Title>
               <Dialog.ScrollArea style={{ maxHeight: 500}}>
                 <ScrollView>

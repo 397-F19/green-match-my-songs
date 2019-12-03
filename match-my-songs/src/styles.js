@@ -72,11 +72,12 @@ export default StyleSheet.create({
     marginTop: 30,
   },
     plusButton:{
-    margin: 90,
+    flex:1,
+    margin: 10,
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',                                          
+    position: 'relative',                                          
   },
 
  spotifyLogo:{

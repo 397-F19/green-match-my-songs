@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 8,
     },
+    plusButton:{
+    flex:1,
+    margin:90,
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute', 
+    marginTop: 670,                                        
+  },
 })
 
 export default styles;
