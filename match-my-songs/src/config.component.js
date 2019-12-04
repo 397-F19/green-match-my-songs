@@ -42,7 +42,7 @@ export default function Config({ token, handleSongs, visible, setVisible }) {
     //console.log(tracks)
     //console.log('preference')
     //console.log(prefTracks)
-    if(prefTracks.length===0) alert('none found')
+    if(prefTracks.length===0) {alert("Nothing found. Let's match again!");setVisible(true);}
     handleSongs(prefTracks);
   }
 
