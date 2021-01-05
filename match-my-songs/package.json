@@ -14,7 +14,7 @@
     "@react-navigation/core": "^5.0.0-alpha.25",
     "@react-navigation/native": "^5.0.0-alpha.16",
     "@react-navigation/stack": "^5.0.0-alpha.37",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "expo": "^35.0.0",
     "prop-type": "0.0.1",
     "prop-types": "^15.7.2",
